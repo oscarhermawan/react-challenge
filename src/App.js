@@ -1,31 +1,26 @@
-import React, { Component } from 'react';
-import Content from './components/Content'
-import axios from 'axios'
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import './App.css';
 
-class App extends Component {
+import { Navbar, Content, ContentDetail } from './components'
+
+class App extends React.Component {
   constructor(){
     super()
-    this.state = {
-      heroes:[]
-    }
-  }
 
-  componentDidMount(){
-    axios.get('http://api.herostats.io/heroes/all')
-    .then((hero)=>{
-      const heroesArr = Object.keys(hero.data).map((key) => { return hero.data[key] });
-      // console.log(heroesArr);
-      this.setState({heroes:heroesArr})
-    })
   }
 
   render() {
     return (
-      <div className="App">
-        <Content heroes={this.state.heroes}/>
-
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <Navbar /><br />
+          <Switch>
+            <Route exact path="/heroes" component={Content} />
+            <Route path="/heroes/:id" component={ContentDetail} />
+          </Switch>
+        </div>
+      </BrowserRouter>
     );
   }
 }
