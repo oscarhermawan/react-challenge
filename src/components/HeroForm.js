@@ -1,37 +1,61 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { addHero } from '../actions'
 
-const HeroForm = (props) =>{
+class HeroForm extends React.Component {
+  constructor(props){
+    super(props)
+  }
+  render(){
+    return (
+      <div>
 
-  return (
-    <div>
+        <div className="field">
+          <p className="control">
+            <input className="input is-primary" type="text" placeholder="Hero Name" ref="Name"/>
+          </p>
+        </div>
+        <div className="field">
+          <p className="control">
+            <input className="input is-primary" type="text" placeholder="Hp Regen" ref="HP"/>
+          </p>
+        </div>
+        <div className="field">
+          <p className="control">
+            <input className="input is-primary" type="text" placeholder="Mana Regen" ref="Mana"/>
+          </p>
+        </div>
 
-      <div className="field">
-        <p className="control">
-          <input className="input is-primary" type="text" placeholder="Hero Name" />
-        </p>
+        <button className="button is-success" onClick={()=>this.props.tambahHero(this.tampungData())}>Input Data</button>
+        <p>Name : {this.props.heroes.length ? this.props.heroes[2].Name : ''}
+        </p><br />
       </div>
-      <div className="field">
-        <p className="control">
-          <input className="input is-primary" type="text" placeholder="Hp Regen" />
-        </p>
-      </div>
-      <div className="field">
-        <p className="control">
-          <input className="input is-primary" type="text" placeholder="Mana Regen" />
-        </p>
-      </div>
+    )
+  }
 
-      <p>Name : {props.hero.name}
-      </p><br />
-    </div>
-  )
-}
-
-const mapStateToProps = (state) =>{
-  return{
-    hero: state.hero,
+  tampungData(){
+    let newHero={
+      Name:this.refs.Name.value,
+      HPRegen:this.refs.HP.value,
+      ManaRegen:this.refs.Mana.value,
+    }
+    return newHero;
   }
 }
 
-export default connect(mapStateToProps, null)(HeroForm);
+
+
+const mapStateToProps = (state) =>{
+  return{
+    heroes: state.heroes,
+  }
+}
+
+const mapDispatchToProps = (dispatch)=>{
+  return{
+    tambahHero:(hero)=>dispatch(addHero(hero))
+  }
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeroForm);

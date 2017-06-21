@@ -1,7 +1,9 @@
 import React from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import { loadData } from '../actions'
+import { loadData, addHero } from '../actions'
+
+import HeroForm from './HeroForm'
 
 class Content extends React.Component {
   constructor(props){
@@ -20,10 +22,11 @@ class Content extends React.Component {
   render(){
     return (
       <div>
+        <HeroForm />
         <div className="columns is-multiline is-mobile">
           { this.props.heroes.length > 0 ?
             (
-              this.props.heroes.filter(hero => hero.Armor > 2).map((hero)=>{
+              this.props.heroes.filter(hero => hero.HPRegen > 0).map((hero)=>{
                     return (
                         <div className="column is-one-quarter" key={hero.ID}>
                           <div className="card">
@@ -61,7 +64,7 @@ class Content extends React.Component {
 
 const mapStateToProps = (state) =>{
   return{
-    heroes: state.hero,
+    heroes: state.heroes,
   }
 }
 

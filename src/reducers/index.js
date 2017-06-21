@@ -3,5 +3,5 @@ import { combineReducers } from 'redux';
 import heroReducer from './heroReducer';
 
 export default combineReducers({
-  hero:heroReducer
+  heroes:heroReducer
 });

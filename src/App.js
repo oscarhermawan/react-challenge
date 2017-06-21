@@ -7,7 +7,7 @@ import './App.css';
 import store from './store/configureStore'
 
 
-import { Navbar, Content, ContentDetail, HeroForm } from './components'
+import { Navbar, Content, ContentDetail } from './components'
 
 class App extends React.Component {
   constructor(){
@@ -21,8 +21,6 @@ class App extends React.Component {
         <BrowserRouter>
           <div className="App">
             <Navbar /><br />
-            <HeroForm />
-
             <Switch>
               <Route exact path="/heroes" component={Content} />
               <Route path="/heroes/:id" component={ContentDetail} />
